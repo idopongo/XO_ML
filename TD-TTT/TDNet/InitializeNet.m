@@ -23,7 +23,7 @@ for l = 1:L
     Net.W{l} = unifrnd(-0.001, 0.001, [N(l + 1), N(l) + 1]);
     
     % Set the layer's activation functions
-    Net.g{l} = @Linear;
+    Net.g{l} = @Sigmoid;
     
 end
 
