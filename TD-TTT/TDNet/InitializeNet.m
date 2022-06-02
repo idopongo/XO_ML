@@ -7,7 +7,7 @@ mpath = strrep(which(mfilename),[mfilename '.m'],'');
 addpath([mpath 'ActivationFunctions']);
 
 % Set the network's dimensions
-N = [10, 1];
+N = [10, 10, 1];
 L = length(N) - 1;
 
 % Create a new network
