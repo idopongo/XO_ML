@@ -7,7 +7,7 @@ mpath = strrep(which(mfilename),[mfilename '.m'],'');
 addpath([mpath 'ActivationFunctions']);
 
 % Set the network's dimensions
-N = [10, 10, 1];
+N = [10, 30, 1];
 L = length(N) - 1;
 
 % Create a new network
@@ -23,8 +23,9 @@ for l = 1:L
     Net.W{l} = unifrnd(-0.001, 0.001, [N(l + 1), N(l) + 1]);
     
     % Set the layer's activation functions
-    Net.g{l} = @Tanh;  
+    Net.g{l} = @ReLU;  
 end
+Net.g{l} = @Tanh;  
 
 SaveNet();
 

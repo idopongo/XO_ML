@@ -15,7 +15,7 @@ InitializeNet();
 %% Train by playing vs. random opponent
 
 GetSetPolicy(@Softmax);
-n_games = 5e6;
+n_games = 1e5;
 train_res = Train(@TDChooseSquare, @RandomChooseSquare, n_games);
 
 %% Plot the results of the training process

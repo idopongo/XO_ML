@@ -1,4 +1,4 @@
-function TDTrain(S, r)
+function TDTrain(S, r, game_num)
 % Train the TD system
 % S - The states' history for a given trial
 % r - the reward given for each state in the given trial
@@ -10,29 +10,24 @@ LoadNet();
 % TODO: Implement TD(0). It is highly recommended to read the documentation
 % of TDEvaluate first.
 
-eta = 1e-4;
+eta = 0.01;
 gama = 0.9;
 n_turns = length(r);
 
-W = Net.W{1};
-w_delta = zeros(n_turns, length(W));
-
 for t = 1:n_turns
-    V(t) = 0;
-    for tau = 1:t - 1
-        V(t) = V(t) + TDEvaluate(S(:, t-tau));
-        %%V(t) = V(t) + W * [S(:, t-tau); 1];
+    [V_curr, grad] = TDEvaluate(S(:,t));
+    
+    if t < n_turns
+        delta = r(t) + gama*TDEvaluate(S(:,t+1)) - V_curr;
+    else
+        delta = r(t) - V_curr;
     end
     
-    delta(t) = sum(r(t:end)) - V(t) * gama ^ t;
-    
-    for tau = 1:t - 1
-        w_delta(tau, :) = eta * delta(t) * [S(:, t-tau); 1]';
+    for l = 1:length(Net.W)
+        w_delta = eta * delta * reshape(grad{l}, size(Net.W{l}));
+        Net.W{l} = Net.W{l} + w_delta;
     end
-    w_delta = sum(w_delta, 1);
-    W = W + w_delta;
 end
-Net.W{1} = W;
 
 end
 
