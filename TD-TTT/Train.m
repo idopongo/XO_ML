@@ -39,7 +39,7 @@ for i = 1:n_games
     r(end) = win;
     
     %Train
-    TDTrain(hist', r);
+    TDTrain(hist', r, i);
     
     % Display progress & statistics
     if(rem(i, n_disp) == 0 || i == n_games)

@@ -10,7 +10,7 @@ LoadNet();
 % TODO: Implement TD(0). It is highly recommended to read the documentation
 % of TDEvaluate first.
 
-eta = 0.01;
+eta = 0.02 * (1 / (1+game_num*1e-4));
 gama = 0.9;
 n_turns = length(r);
 
